@@ -5,6 +5,7 @@ import AppButton from '@/components/ui/AppButton.vue'
 import LanguageSwitch from '@/components/LanguageSwitch.vue'
 import { useIncidentsStore } from '@/stores/incidents'
 import { useIncidentFormStore } from '@/stores/incidentForm'
+import { SEVERITY, REJECT_PROPS } from '@/constants/confirmDialog'
 
 const store = useIncidentsStore()
 const formStore = useIncidentFormStore()
@@ -16,8 +17,8 @@ function handleReset() {
     message: t('app.resetDialog.message'),
     header: t('app.resetDialog.header'),
     icon: 'pi pi-exclamation-triangle',
-    acceptProps: { label: t('app.resetDialog.confirm'), severity: 'danger' },
-    rejectProps: { label: t('app.resetDialog.cancel'), severity: 'secondary', outlined: true },
+    acceptProps: { label: t('app.resetDialog.confirm'), severity: SEVERITY.DANGER },
+    rejectProps: { ...REJECT_PROPS, label: t('app.resetDialog.cancel') },
     accept: () => store.resetToSeedData(),
   })
 }

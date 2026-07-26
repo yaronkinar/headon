@@ -5,7 +5,7 @@ import { seedIncidents } from '@/data/seedIncidents'
 import { useIncidentFormStore } from '@/stores/incidentForm'
 import { ALL_OPTION_VALUE } from '@/constants/filterConstants'
 
-const STORAGE_KEY = 'incidents'
+export const STORAGE_KEY = 'incidents'
 
 function loadInitialIncidents(): Incident[] {
   const raw = localStorage.getItem(STORAGE_KEY)

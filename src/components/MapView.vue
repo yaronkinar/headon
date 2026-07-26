@@ -47,13 +47,13 @@ function buildStatusIcon(modifier: string, selected = false) {
     return L.divIcon({
       className: 'incident-marker',
       html: `<div class="incident-marker-dot ${modifier}"></div>`,
-      iconSize: [16, 16],
+      iconSize: [22, 22],
     }) as unknown as L.Icon<L.IconOptions>
   }
   return L.divIcon({
     className: 'incident-marker incident-marker--selected',
     html: `<div class="incident-marker-ring"><div class="incident-marker-dot ${modifier}"></div></div>`,
-    iconSize: [32, 32],
+    iconSize: [44, 44],
   }) as unknown as L.Icon<L.IconOptions>
 }
 
@@ -67,25 +67,34 @@ function onMapClick(event: L.LeafletMouseEvent) {
   formStore.setPendingLocation(event.latlng.lat, event.latlng.lng)
 }
 
-function onMarkerClick(event: L.LeafletMouseEvent, incidentId: string) {
+function onMarkerInteract(incident: Incident) {
   if (formStore.isFormOpen) {
-    formStore.setPendingLocation(event.latlng.lat, event.latlng.lng)
+    formStore.setPendingLocation(incident.latitude, incident.longitude)
     return
   }
-  store.selectIncident(incidentId)
+  store.selectIncident(incident.id)
 }
 
 function onMarkerReady(marker: L.Marker, incident: Incident) {
-  marker
-    .getElement()
-    ?.setAttribute(
-      'aria-label',
-      t('mapView.markerLabel', {
-        title: incident.title,
-        type: typeLabel(incident.type),
-        status: statusLabel(incident.status),
-      }),
-    )
+  const el = marker.getElement()
+  if (!el) return
+  el.setAttribute(
+    'aria-label',
+    t('mapView.markerLabel', {
+      title: incident.title,
+      type: typeLabel(incident.type),
+      status: statusLabel(incident.status),
+    }),
+  )
+  // DivIcon elements aren't keyboard-reachable by default — mirror IncidentListItem's
+  // role/tabindex/Enter-Space pattern so markers are selectable without a mouse too.
+  el.setAttribute('role', 'button')
+  el.setAttribute('tabindex', '0')
+  el.addEventListener('keydown', (event: KeyboardEvent) => {
+    if (event.key !== 'Enter' && event.key !== ' ') return
+    event.preventDefault()
+    onMarkerInteract(incident)
+  })
 }
 
 const pendingMarkerPosition = computed<[number, number] | null>(() => {
@@ -142,7 +151,7 @@ watch(
             : statusIcons[incident.status]
         "
         :z-index-offset="incident.id === store.selectedIncidentId ? 1000 : 0"
-        @click="onMarkerClick($event, incident.id)"
+        @click="onMarkerInteract(incident)"
         @ready="(marker: L.Marker) => onMarkerReady(marker, incident)"
       >
         <LPopup v-if="!formStore.isFormOpen">
@@ -189,6 +198,12 @@ watch(
   box-shadow: none;
 }
 
+:global(.incident-marker:focus-visible) {
+  outline: 2px solid var(--brand);
+  outline-offset: 2px;
+  border-radius: 50%;
+}
+
 :global(.pending-marker-dot) {
   width: 18px;
   height: 18px;
@@ -199,11 +214,27 @@ watch(
 }
 
 :global(.incident-marker-dot) {
-  width: 16px;
-  height: 16px;
+  position: relative;
+  width: 22px;
+  height: 22px;
   border-radius: 50%;
   border: 2.5px solid var(--paper-raised);
-  box-shadow: 0 1px 4px rgba(24, 24, 27, 0.35);
+  box-shadow:
+    0 3px 8px rgba(24, 24, 27, 0.45),
+    0 1px 2px rgba(24, 24, 27, 0.3);
+  transition:
+    transform 0.15s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.15s ease;
+}
+
+:global(.incident-marker-dot::after) {
+  content: '';
+  position: absolute;
+  inset: 3px 3px auto 3px;
+  height: 30%;
+  border-radius: 50% 50% 60% 60% / 100% 100% 45% 45%;
+  background: linear-gradient(rgba(255, 255, 255, 0.3), rgba(255, 255, 255, 0));
+  pointer-events: none;
 }
 
 :global(.incident-marker-dot.open) {
@@ -218,37 +249,51 @@ watch(
   background: var(--status-resolved);
 }
 
+:global(.incident-marker:hover .incident-marker-dot),
+:global(.incident-marker:focus-visible .incident-marker-dot) {
+  transform: scale(1.18);
+  box-shadow:
+    0 5px 12px rgba(24, 24, 27, 0.5),
+    0 1px 2px rgba(24, 24, 27, 0.35);
+}
+
 :global(.incident-marker-ring) {
-  width: 32px;
-  height: 32px;
+  width: 44px;
+  height: 44px;
   display: flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  box-shadow: 0 0 0 2px var(--brand);
-  animation: incident-marker-pulse 1.6s ease-out infinite;
+  background: color-mix(in srgb, var(--paper-raised) 55%, transparent);
+  box-shadow: 0 0 0 2.5px var(--brand);
+  animation: incident-marker-pulse 1.8s ease-out infinite;
 }
 
 :global(.incident-marker-ring .incident-marker-dot) {
-  width: 16px;
-  height: 16px;
+  width: 22px;
+  height: 22px;
+}
+
+:global(.incident-marker--selected:hover .incident-marker-dot),
+:global(.incident-marker--selected:focus-visible .incident-marker-dot) {
+  transform: scale(1.1);
 }
 
 @keyframes incident-marker-pulse {
   0% {
     box-shadow:
-      0 0 0 2px var(--brand),
-      0 0 0 2px rgba(31, 61, 46, 0.35);
+      0 0 0 2.5px var(--brand),
+      0 0 0 2.5px rgba(31, 61, 46, 0.35);
   }
   70% {
     box-shadow:
-      0 0 0 2px var(--brand),
-      0 0 0 10px rgba(31, 61, 46, 0);
+      0 0 0 2.5px var(--brand),
+      0 0 0 14px rgba(31, 61, 46, 0);
   }
   100% {
     box-shadow:
-      0 0 0 2px var(--brand),
-      0 0 0 2px rgba(31, 61, 46, 0);
+      0 0 0 2.5px var(--brand),
+      0 0 0 2.5px rgba(31, 61, 46, 0);
   }
 }
 </style>

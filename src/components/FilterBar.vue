@@ -10,15 +10,12 @@ const store = useIncidentsStore()
 const { t } = useI18n({ useScope: 'global' })
 const { statusOptions: baseStatusOptions, typeOptions: baseTypeOptions } = useIncidentLabels()
 
-const ALL_STATUS_OPTION = { value: ALL_OPTION_VALUE, label: t(ALL_STATUS_LABEL) }
-const ALL_TYPE_OPTION = { value: ALL_OPTION_VALUE, label: t(ALL_TYPE_LABEL) }
-
 const statusOptions = computed(() => [
-  ALL_STATUS_OPTION,
+  { value: ALL_OPTION_VALUE, label: t(ALL_STATUS_LABEL) },
   ...baseStatusOptions.value,
 ])
 const typeOptions = computed(() => [
-  ALL_TYPE_OPTION,
+  { value: ALL_OPTION_VALUE, label: t(ALL_TYPE_LABEL) },
   ...baseTypeOptions.value,
 ])
 </script>

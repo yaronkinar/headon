@@ -55,6 +55,7 @@ The three-column layout (list/map/details) stacks vertically below 900px, and th
   - the current selection (`selectedIncidentId`)
   - the active filters (`statusFilter`, `typeFilter`)
 - `src/stores/incidentForm.ts` — a separate store for the create/edit side panel's own UI state (`isFormOpen`, `formMode`, `pendingLocation`), kept out of the data store so the data store doesn't need to know a form exists
+- `src/constants/` — small literals shared across more than one file (the `'ALL'` filter sentinel + its i18n key, and the confirm-dialog `danger`/`secondary` severity styling reused by both the delete and reset-sample-data dialogs), so there's a single place to change them instead of two copies drifting apart
 - `src/components/`
   - `AppHeader.vue` / `LanguageSwitch.vue` — masthead, reset/new-incident actions, language switcher (also sets `<html lang/dir>` and the page title)
   - `FilterBar.vue` — status/type filter dropdowns
@@ -71,7 +72,7 @@ There is no backend. All CRUD operates directly and synchronously on the Pinia s
 
 ### List/map selection sync
 
-`selectedIncidentId` in the store is the single source of truth. Both a list-item click and a marker click just call `store.selectIncident(id)`. `MapView` reacts to selection changes with a `watch` that pans/zooms the Leaflet map — it never writes selection back — so there's no feedback loop.
+`selectedIncidentId` in the store is the single source of truth. Both a list-item click and a marker click just call `store.selectIncident(id)`. `MapView` reacts to selection changes with a `watch` that pans/zooms the Leaflet map (and closes any open popup) — it never writes selection back — so there's no feedback loop. Opening the create form also clears the current selection, so starting a new incident doesn't leave a stale one highlighted in the list/map behind the panel.
 
 ### Map-click-to-pick-location flow
 

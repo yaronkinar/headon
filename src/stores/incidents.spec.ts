@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { nextTick } from 'vue'
 import { createPinia, setActivePinia } from 'pinia'
-import { useIncidentsStore } from '@/stores/incidents'
+import { STORAGE_KEY, useIncidentsStore } from '@/stores/incidents'
 import { useIncidentFormStore } from '@/stores/incidentForm'
 import { seedIncidents } from '@/data/seedIncidents'
 
@@ -20,7 +20,7 @@ describe('useIncidentsStore', () => {
 
   it('loads incidents from localStorage when present', () => {
     const stored = [seedIncidents[0]]
-    localStorage.setItem('incidents', JSON.stringify(stored))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(stored))
 
     const store = useIncidentsStore()
 
@@ -28,7 +28,7 @@ describe('useIncidentsStore', () => {
   })
 
   it('falls back to seed data when localStorage holds invalid JSON', () => {
-    localStorage.setItem('incidents', '{not json')
+    localStorage.setItem(STORAGE_KEY, '{not json')
 
     const store = useIncidentsStore()
 
@@ -41,7 +41,7 @@ describe('useIncidentsStore', () => {
     store.createIncident({ title: 'Persisted', type: 'SAFETY_ISSUE', status: 'OPEN' }, LOCATION)
     await nextTick()
 
-    const stored = JSON.parse(localStorage.getItem('incidents') ?? '[]')
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '[]')
     expect(stored).toHaveLength(seedIncidents.length + 1)
   })
 

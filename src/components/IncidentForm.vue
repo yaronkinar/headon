@@ -5,7 +5,7 @@ import AppButton from '@/components/ui/AppButton.vue'
 import AppSelect from '@/components/ui/AppSelect.vue'
 import FormField from '@/components/ui/FormField.vue'
 import { useIncidentsStore } from '@/stores/incidents'
-import { useIncidentFormStore } from '@/stores/incidentForm'
+import { FORM_MODE, useIncidentFormStore } from '@/stores/incidentForm'
 import { useIncidentLabels } from '@/composables/useIncidentLabels'
 import type { IncidentStatus, IncidentType } from '@/types/incident'
 
@@ -22,7 +22,7 @@ watch(
   () => formStore.isFormOpen,
   (isOpen) => {
     if (!isOpen) return
-    if (formStore.formMode === 'edit' && store.selectedIncident) {
+    if (formStore.formMode === FORM_MODE.EDIT && store.selectedIncident) {
       title.value = store.selectedIncident.title
       type.value = store.selectedIncident.type
       status.value = store.selectedIncident.status
@@ -41,7 +41,7 @@ function handleSubmit() {
   const location = formStore.pendingLocation
   if (title.value.trim().length === 0 || !location) return
   const draft = { title: title.value.trim(), type: type.value, status: status.value }
-  if (formStore.formMode === 'edit' && store.selectedIncident) {
+  if (formStore.formMode === FORM_MODE.EDIT && store.selectedIncident) {
     store.updateIncident(store.selectedIncident.id, draft, location)
   } else {
     store.createIncident(draft, location)
@@ -54,13 +54,13 @@ function handleSubmit() {
   <div class="incident-form">
     <p class="eyebrow">
       {{
-        formStore.formMode === 'edit'
+        formStore.formMode === FORM_MODE.EDIT
           ? t('incidentForm.editingEyebrow')
           : t('incidentForm.newEyebrow')
       }}
     </p>
     <h2>{{
-      formStore.formMode === 'edit' ? t('incidentForm.editTitle') : t('incidentForm.newTitle')
+      formStore.formMode === FORM_MODE.EDIT ? t('incidentForm.editTitle') : t('incidentForm.newTitle')
     }}</h2>
 
     <FormField :label="t('incidentForm.titleLabel')" input-id="title">

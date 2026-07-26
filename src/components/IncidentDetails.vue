@@ -9,7 +9,7 @@ import EmptyState from '@/components/ui/EmptyState.vue'
 import { useIncidentsStore } from '@/stores/incidents'
 import { useIncidentFormStore } from '@/stores/incidentForm'
 import { useIncidentLabels } from '@/composables/useIncidentLabels'
-import { SEVERITY, REJECT_PROPS } from '@/constants/incidentDetails'
+import { SEVERITY, REJECT_PROPS } from '@/constants/confirmDialog'
 
 const store = useIncidentsStore()
 const formStore = useIncidentFormStore()

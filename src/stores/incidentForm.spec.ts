@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { createPinia, setActivePinia } from 'pinia'
-import { useIncidentFormStore } from '@/stores/incidentForm'
+import { FORM_MODE, useIncidentFormStore } from '@/stores/incidentForm'
 import { useIncidentsStore } from '@/stores/incidents'
 import { seedIncidents } from '@/data/seedIncidents'
 
@@ -14,7 +14,7 @@ describe('useIncidentFormStore', () => {
     const formStore = useIncidentFormStore()
 
     expect(formStore.isFormOpen).toBe(false)
-    expect(formStore.formMode).toBe('create')
+    expect(formStore.formMode).toBe(FORM_MODE.CREATE)
     expect(formStore.pendingLocation).toBeNull()
   })
 
@@ -26,7 +26,7 @@ describe('useIncidentFormStore', () => {
       formStore.openCreateForm()
 
       expect(formStore.isFormOpen).toBe(true)
-      expect(formStore.formMode).toBe('create')
+      expect(formStore.formMode).toBe(FORM_MODE.CREATE)
       expect(formStore.pendingLocation).toBeNull()
     })
   })
@@ -40,7 +40,7 @@ describe('useIncidentFormStore', () => {
       formStore.openEditForm(target.id)
 
       expect(formStore.isFormOpen).toBe(true)
-      expect(formStore.formMode).toBe('edit')
+      expect(formStore.formMode).toBe(FORM_MODE.EDIT)
       expect(formStore.pendingLocation).toEqual({ lat: target.latitude, lng: target.longitude })
       expect(incidentsStore.selectedIncidentId).toBe(target.id)
     })

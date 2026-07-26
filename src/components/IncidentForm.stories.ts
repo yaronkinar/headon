@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from '@storybook/vue3-vite'
 import IncidentForm from './IncidentForm.vue'
 import { useIncidentsStore } from '@/stores/incidents'
-import { useIncidentFormStore } from '@/stores/incidentForm'
+import { FORM_MODE, useIncidentFormStore, type FormMode } from '@/stores/incidentForm'
 import { seedIncidents } from '@/data/seedIncidents'
 import type { LatLng } from '@/types/incident'
 
@@ -9,7 +9,7 @@ import type { LatLng } from '@/types/incident'
 // stores rather than props, so args here seed those stores on render instead of
 // binding to real component props.
 interface IncidentFormArgs {
-  formMode: 'create' | 'edit'
+  formMode: FormMode
   pendingLocation: LatLng | null
   selectedIncidentId: string | null
 }
@@ -18,7 +18,7 @@ const meta: Meta<IncidentFormArgs> = {
   title: 'components/IncidentForm',
   tags: ['autodocs'],
   args: {
-    formMode: 'create',
+    formMode: FORM_MODE.CREATE,
     pendingLocation: null,
     selectedIncidentId: null,
   },
@@ -49,7 +49,7 @@ export const NewIncidentWithLocation: Story = {
 
 export const EditIncident: Story = {
   args: {
-    formMode: 'edit',
+    formMode: FORM_MODE.EDIT,
     selectedIncidentId: seedIncidents[0]!.id,
     pendingLocation: { lat: seedIncidents[0]!.latitude, lng: seedIncidents[0]!.longitude },
   },
