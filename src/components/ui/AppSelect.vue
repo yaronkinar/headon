@@ -60,4 +60,11 @@ select:focus-visible {
   color: var(--ink-muted);
   pointer-events: none;
 }
+
+@media (max-width: 640px) {
+  select {
+    min-height: 44px;
+    padding-block: 0.7rem;
+  }
+}
 </style>

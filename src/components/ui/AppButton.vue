@@ -83,4 +83,11 @@ withDefaults(
 .app-button.danger:hover:not(:disabled) {
   background: var(--status-open-tint);
 }
+
+@media (max-width: 640px) {
+  .app-button {
+    min-height: 44px;
+    padding: 0.6rem 1rem;
+  }
+}
 </style>

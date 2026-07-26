@@ -64,4 +64,26 @@ function handleReset() {
   align-items: center;
   gap: 0.6rem;
 }
+
+@media (max-width: 640px) {
+  .app-header {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 0.75rem;
+    padding: 0.85rem 1rem;
+  }
+
+  .masthead h1 {
+    font-size: 1.25rem;
+  }
+
+  .header-actions {
+    flex-wrap: wrap;
+    gap: 0.5rem;
+  }
+
+  .header-actions > * {
+    flex: 1 1 auto;
+  }
+}
 </style>

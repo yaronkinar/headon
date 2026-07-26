@@ -40,6 +40,8 @@ npm run test:e2e:ui      # Playwright end-to-end tests, interactive UI mode
 
 The UI follows a "civic/editorial" look: a white/neutral-gray paper palette, `Fraunces` (serif) for headings paired with `Public Sans` for UI text, hairline borders instead of shadows, and status colors (rust/ochre/forest-green) for open/in-progress/resolved.
 
+The three-column layout (list/map/details) stacks vertically below 900px, and the header, buttons, and dropdowns pick up a phone-width (≤640px) breakpoint that wraps actions and enforces 44px touch targets — verified down to a 320px viewport in both LTR and RTL.
+
 - `src/assets/base.css` — design tokens (`--paper`, `--ink`, `--brand`, `--status-*`, fonts, radius) as CSS custom properties
 - `src/components/ui/` — small, reusable, prop-driven primitives: `AppButton`, `AppSelect`, `StatusTag`, `FormField`, `DetailRow`, `EmptyState`. These are the components with Storybook stories (`*.stories.ts` alongside each).
 
@@ -87,6 +89,5 @@ There is no backend. All CRUD operates directly and synchronously on the Pinia s
 
 ## Known limitations / possible next steps
 
-- No responsive/mobile layout — assumes a desktop viewport.
 - No marker clustering, geocoding, or draggable-marker editing.
 - No component-level tests (e.g. Vue Testing Library) — coverage today is Vitest unit tests for the stores, Storybook (visual/isolated), and Playwright (end-to-end).
