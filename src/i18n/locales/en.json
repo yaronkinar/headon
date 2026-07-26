@@ -1,0 +1,70 @@
+{
+  "app": {
+    "title": "Incident Register",
+    "eyebrow": "Municipal Operations · Live Register",
+    "resetSampleData": "Reset Sample Data",
+    "newIncident": "New Incident",
+    "language": "Language",
+    "resetDialog": {
+      "header": "Reset Sample Data",
+      "message": "Reset all incidents back to the sample data? This cannot be undone.",
+      "confirm": "Reset",
+      "cancel": "Cancel"
+    }
+  },
+  "filters": {
+    "allStatuses": "All Statuses",
+    "allTypes": "All Types",
+    "statusAriaLabel": "Filter by status",
+    "typeAriaLabel": "Filter by type"
+  },
+  "incidentList": {
+    "empty": "No incidents match the current filters."
+  },
+  "incidentDetails": {
+    "eyebrow": "Incident Record",
+    "type": "Type",
+    "status": "Status",
+    "location": "Location",
+    "filed": "Filed",
+    "edit": "Edit",
+    "delete": "Delete",
+    "emptyState": "Select an incident from the list or map to view its details.",
+    "deleteDialog": {
+      "header": "Delete Incident",
+      "message": "Delete incident \"{title}\"?",
+      "confirm": "Delete",
+      "cancel": "Cancel"
+    }
+  },
+  "incidentForm": {
+    "editingEyebrow": "Editing Record",
+    "newEyebrow": "New Record",
+    "editTitle": "Edit Incident",
+    "newTitle": "New Incident",
+    "titleLabel": "Title",
+    "titlePlaceholder": "Incident title",
+    "typeLabel": "Type",
+    "statusLabel": "Status",
+    "locationLabel": "Location",
+    "locationPlaceholder": "Click on the map to set location.",
+    "save": "Save",
+    "cancel": "Cancel"
+  },
+  "mapView": {
+    "clickHint": "Click on the map to set the incident location.",
+    "clickHintUpdate": "Location set — click elsewhere on the map to move it.",
+    "markerLabel": "{title} — {type}, {status}"
+  },
+  "incidentTypes": {
+    "POWER_OUTAGE": "Power Outage",
+    "ROAD_BLOCKAGE": "Road Blockage",
+    "INFRASTRUCTURE_DAMAGE": "Infrastructure Damage",
+    "SAFETY_ISSUE": "Safety Issue"
+  },
+  "incidentStatuses": {
+    "OPEN": "Open",
+    "IN_PROGRESS": "In Progress",
+    "RESOLVED": "Resolved"
+  }
+}

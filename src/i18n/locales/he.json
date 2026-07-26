@@ -1,0 +1,70 @@
+{
+  "app": {
+    "title": "מרשם תקריות",
+    "eyebrow": "תפעול עירוני · מרשם חי",
+    "resetSampleData": "איפוס נתוני דוגמה",
+    "newIncident": "תקרית חדשה",
+    "language": "שפה",
+    "resetDialog": {
+      "header": "איפוס נתוני דוגמה",
+      "message": "לאפס את כל התקריות בחזרה לנתוני הדוגמה? לא ניתן לבטל פעולה זו.",
+      "confirm": "איפוס",
+      "cancel": "ביטול"
+    }
+  },
+  "filters": {
+    "allStatuses": "כל הסטטוסים",
+    "allTypes": "כל הסוגים",
+    "statusAriaLabel": "סינון לפי סטטוס",
+    "typeAriaLabel": "סינון לפי סוג"
+  },
+  "incidentList": {
+    "empty": "אין תקריות התואמות את המסננים הנוכחיים."
+  },
+  "incidentDetails": {
+    "eyebrow": "רשומת תקרית",
+    "type": "סוג",
+    "status": "סטטוס",
+    "location": "מיקום",
+    "filed": "נרשם",
+    "edit": "עריכה",
+    "delete": "מחיקה",
+    "emptyState": "בחר תקרית מהרשימה או מהמפה כדי להציג את פרטיה.",
+    "deleteDialog": {
+      "header": "מחיקת תקרית",
+      "message": "למחוק את התקרית \"{title}\"?",
+      "confirm": "מחיקה",
+      "cancel": "ביטול"
+    }
+  },
+  "incidentForm": {
+    "editingEyebrow": "עריכת רשומה",
+    "newEyebrow": "רשומה חדשה",
+    "editTitle": "עריכת תקרית",
+    "newTitle": "תקרית חדשה",
+    "titleLabel": "כותרת",
+    "titlePlaceholder": "כותרת התקרית",
+    "typeLabel": "סוג",
+    "statusLabel": "סטטוס",
+    "locationLabel": "מיקום",
+    "locationPlaceholder": "יש ללחוץ על המפה כדי להגדיר מיקום.",
+    "save": "שמירה",
+    "cancel": "ביטול"
+  },
+  "mapView": {
+    "clickHint": "יש ללחוץ על המפה כדי להגדיר את מיקום התקרית.",
+    "clickHintUpdate": "המיקום הוגדר — יש ללחוץ במקום אחר על המפה כדי להזיז אותו.",
+    "markerLabel": "{title} — {type}, {status}"
+  },
+  "incidentTypes": {
+    "POWER_OUTAGE": "הפסקת חשמל",
+    "ROAD_BLOCKAGE": "חסימת כביש",
+    "INFRASTRUCTURE_DAMAGE": "נזק לתשתית",
+    "SAFETY_ISSUE": "בעיית בטיחות"
+  },
+  "incidentStatuses": {
+    "OPEN": "פתוח",
+    "IN_PROGRESS": "בטיפול",
+    "RESOLVED": "טופל"
+  }
+}

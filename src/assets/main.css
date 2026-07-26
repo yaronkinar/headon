@@ -1,0 +1,83 @@
+@import './base.css';
+
+html,
+body,
+#app {
+  height: 100%;
+}
+
+#app {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Restyle the PrimeVue confirm dialog to match the civic/editorial system */
+.p-dialog-mask {
+  background: rgba(24, 24, 27, 0.45);
+}
+
+.p-dialog {
+  background: var(--paper-raised);
+  border: 1px solid var(--hairline-strong);
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-panel);
+}
+
+.p-dialog-header {
+  padding: 1.25rem 1.25rem 0.9rem;
+  border-bottom: 1px solid var(--hairline);
+}
+
+.p-dialog-title {
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: var(--ink);
+}
+
+.p-dialog-content {
+  padding: 1.25rem;
+  font-family: var(--font-body);
+  color: var(--ink-soft);
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+}
+
+.p-confirmdialog-icon {
+  color: var(--status-open);
+  font-size: 1.2rem;
+}
+
+.p-dialog-footer {
+  padding: 0 1.25rem 1.25rem;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.6rem;
+}
+
+.p-dialog .p-button {
+  font-family: var(--font-body);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius);
+  padding: 0.6rem 1.1rem;
+}
+
+.p-dialog .p-button.p-button-danger {
+  background: var(--danger);
+  border-color: var(--danger);
+}
+
+.p-dialog .p-button.p-button-secondary.p-button-outlined {
+  background: transparent;
+  border-color: var(--hairline-strong);
+  color: var(--ink);
+}
+
+.p-dialog .p-button.p-button-secondary.p-button-outlined:hover {
+  border-color: var(--ink);
+  background: var(--brand-tint);
+}
