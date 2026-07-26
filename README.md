@@ -1,5 +1,7 @@
 # Incident Register
 
+[![CI](https://github.com/yaronkinar/headon/actions/workflows/ci.yml/badge.svg)](https://github.com/yaronkinar/headon/actions/workflows/ci.yml)
+
 A small Vue 3 + TypeScript app for viewing and managing municipal incidents (power outages, road blockages, infrastructure damage, safety issues) on a map and in a list.
 
 ## Running locally
@@ -78,6 +80,10 @@ There is no backend. All CRUD operates directly and synchronously on the Pinia s
 - **Vitest unit tests** (`npm run test:unit`) cover `stores/incidents.ts` and `stores/incidentForm.ts` directly — persistence/hydration from `localStorage`, filtering, selection, and every CRUD/form-flow branch (including the "no matching id" no-ops).
 - **Storybook** (`npm run storybook`) documents the `ui/` primitives in isolation, including a story that pins down a real overflow bug that was hit and fixed in `AppSelect` (a narrow flex container clipping a long option label).
 - **Playwright e2e** (`npm run test:e2e`) drives the real app against a dedicated dev server (port 5183) and covers the core flows end-to-end: creating an incident (including the map-click-to-set-location step), editing, deleting with confirm/cancel, and status/type filtering. Each test clears `localStorage` before navigating so it always starts from the deterministic seed data.
+
+## CI
+
+`.github/workflows/ci.yml` runs on every push/PR to `master`: lint + build, Vitest unit tests, and Playwright e2e tests (in parallel jobs). The Playwright HTML report is uploaded as a workflow artifact on every run, pass or fail.
 
 ## Known limitations / possible next steps
 
